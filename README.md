@@ -7,3 +7,5 @@ It's intended for natural language parses and may not work well for code parses.
 Originally I wrote this because a friend had a set of 100 parses of the same sentence (it was short too).  It happened because the grammar had some duplicate rules and those rules led to 
 lots and lots of parses.  This tool helped at least see where in the parse tree those ambiguities were.  Since then, numerous parse tree drawing applications have come about, even in LaTeX!  
 So I've predominantly stopped working on this project.
+
+I recently imported it to Github to make it easier for people to use or modify.  Also, sometimes people want to use the ParseTreePanel in their own Java work and it's possible to do that (see the example package code).
