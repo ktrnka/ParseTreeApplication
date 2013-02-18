@@ -1,0 +1,120 @@
+<html>
+<head>
+	<title>Parse Tree Application Help</title>
+</head>
+
+<body>
+<h1>Parse Tree Application Help</h1>
+
+<p><h2>Credits</h2>
+The Parse Tree Application (PTA) was created by Keith Trnka. The Java EPS Graphics2D package used to support EPS graphics is open source software, available from http://www.jibble.org/epsgraphics
+
+<p><h2>About</h2>
+PTA was designed to allow researchers in Computational Linguistics, or Natural Language Processing, to work more efficiently with natural language parsing. To do this, it facilitates the analysis of parse trees by providing visualizations. The two main visualizations are that of a single parse tree and a visualization of the differences between different parse trees.
+
+<p><h2>Features</h2>
+PTA supports the following abilities:
+<UL>
+	<LI>Entering single parse trees in either XML or labeled bracketing format.
+	<LI>Loading multiple parse trees from a file in XML or labeled bracketing format.<br>
+		The XML file format has the root element "trees". The labeled bracketing root element is unnamed. In other words, it looks something like ( (S ... ) (S ... ) )
+	<LI>Lexical ambiguity selection<br>
+		A set of parse trees may be loaded into the <em>lexical amnbiguity selector</em> to help users analyse a large set of parse trees. This set is partitioned into subsets such that each parse tree in a single subset has the same preterminal symbols as the other trees in the same subset. In common terms, it splits up the parse trees into groups that agree on the part of speech (POS) tags. 
+	<LI>Comparison of parse trees<br>
+		All non-minimized parse trees may be compared. This will color the similarities between trees gray and leave the differences black, so as to draw attention to the differences.
+	<LI>Enhanced comarison of parse trees<br>
+		Parse trees which have already been compared may be promoted to an enhanced comparison view, in which most similarities between parse trees are omitted from the drawing.
+	<LI>Parse tree drawing<br>
+		Flexible parse tree drawing is supported by three methods: top-oriented, bottom-oriented, and average-oriented.
+		<ul>
+			<li>Bottom-oriented<br>
+				Constituents are drawn as close to the bottom as possible. 
+			<li>Top-oriented<br>
+				Constituents are drawn as close to the top as possible. So the "level" of the constituent is its depth in the tree.
+			<li>Average-oriented<br>
+				Constituents are drawn in a position that is the average of the other two methods.
+		</ul>
+	<LI>Image saving<br>
+		PTA supports the following image file formats:
+		<ul>
+			<li>eps - preferred due to it's lossless vector-based format
+			<li>png - recommended for situations when the EPS image isn't useful. It's lossless but not vector.
+			<li>jpeg - not recommended; It's both lossy and non-vector.
+		</ul>
+	<LI>Printing<br>
+		PTA uses Java's built-in printing facilities. It doesn't seem to work properly under Solaris, but works correctly under Windows.
+	<LI>Window management
+</UL>
+
+<p><h2>Parse Tree Formats</h2>
+Parse trees may be specified in either XML or labeled bracketing.
+<dl>
+	<dt><b>XML</b>
+	<dd>
+<!-- <S><NP><PRP>I</PRP></NP> <VP><V>wore</V> <NP><DT>a</DT> <NN>hat</NN></NP> <PP><P>with</P> <NP><DT>a</DT> <NN>ribbon</NN></NP></PP></VP>.</S> -->
+<code>
+&lt;S&gt;&lt;NP&gt;&lt;PRP&gt;I&lt;/PRP&gt;&lt;/NP&gt; &lt;VP&gt;&lt;V&gt;wore&lt;/V&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;hat&lt;/NN&gt;&lt;/NP&gt; &lt;PP&gt;&lt;P&gt;with&lt;/P&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;ribbon&lt;/NN&gt;&lt;/NP&gt;&lt;/PP&gt;&lt;/VP&gt;.&lt;/S&gt;
+</code>
+
+<p>For the situations in which the label of a constituent in a parse tree is not a valid XML name, the constituent label may be bypassed by using the XML tag <code>constituent</code> in conjunction with the attribute <code>label</code>, as in the following example:<br>
+<code>
+<!-- <S><SSUB><DP><DETP><POSS>my</POSS></DETP> <NP><N><N><N>name</N> <constituent label="+S">+s</constituent></N></N></NP></DP> <VP><V>is</V> <ADJP><ADJ>tony</ADJ></ADJP></VP></SSUB></S> -->
+&lt;S&gt;&lt;SSUB&gt;&lt;DP&gt;&lt;DETP&gt;&lt;POSS&gt;my&lt;/POSS&gt;&lt;/DETP&gt; &lt;NP&gt;&lt;N&gt;&lt;N&gt;&lt;N&gt;name&lt;/N&gt; &lt;constituent label="+S"&gt;+s&lt;/constituent&gt;&lt;/N&gt;&lt;/N&gt;&lt;/NP&gt;&lt;/DP&gt; &lt;VP&gt;&lt;V&gt;is&lt;/V&gt; &lt;ADJP&gt;&lt;ADJ&gt;tony&lt;/ADJ&gt;&lt;/ADJP&gt;&lt;/VP&gt;&lt;/SSUB&gt;&lt;/S&gt;
+</code><br>
+Note that XML is case-sensitive, so using the <code>constituent</code> element with the <code>label</code> attribute is case-sensitive.
+
+
+	<dt><b>Labeled bracketing</b>
+	<dd><code>(S (NP (PRP I ) ) (VP (V wore ) (NP (DT a ) (NN hat ) ) (PP (P with ) (NP (DT a ) (NN ribbon ) ) ) ) . )</code><br>
+		<em>Note: the closing brackets don't need to be separated by whitespace, but they are here for clarity.</em>
+</dl>
+XML format is preferred. This is because XML format represents spacing and punctuation in an exact manner. In other words, if there are exactly three spaces between words, then three spaces are drawn in the tree. Normal labeled bracketing doesn't support this, but is often easier to type.
+
+<p>As with single trees, two file formats exist for storing multiple parse trees. The XML and labeled bracketing representations were extended to support multiple parse trees. Below is an example of each file format, both containing a single parse tree.
+<dl>
+	<dt><b>XML</b>
+	<dd>
+<!-- 
+<trees>
+<S><NP><PRP>I</PRP></NP> <VP><V>wore</V> <NP><DT>a</DT> <NN>hat</NN></NP> <PP><P>with</P> <NP><DT>a</DT> <NN>ribbon</NN></NP></PP></VP>.</S> 
+</trees>
+-->
+<code>
+&lt;trees&gt;<br>
+&lt;S&gt;&lt;NP&gt;&lt;PRP&gt;I&lt;/PRP&gt;&lt;/NP&gt; &lt;VP&gt;&lt;V&gt;wore&lt;/V&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;hat&lt;/NN&gt;&lt;/NP&gt; &lt;PP&gt;&lt;P&gt;with&lt;/P&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;ribbon&lt;/NN&gt;&lt;/NP&gt;&lt;/PP&gt;&lt;/VP&gt;.&lt;/S&gt; <br>
+&lt;/trees&gt;
+</code>
+	<dt><b>Labeled bracketing</b>
+	<dd>
+<code>
+(<br>
+(S (NP (PRP I ) ) (VP (V wore ) (NP (DT a ) (NN hat ) ) (PP (P with ) (NP (DT a ) (NN ribbon ) ) ) ) . )<br>
+)
+</code>
+</dl>
+
+<p><h2>Known Bugs</h2>
+Printing doesn't work on my Solaris computers.
+
+<p><h2>Future Work</h2>
+<ul>
+	<li>Optimize the graphics<br>
+		Parse tree drawings don't change all that much, but Java re-draws them pretty often because it has no notion of whether the image has changed or not. So, things that force windows to re-draw, like dragging, can be really slow on some computers. This could be solved if the drawing is drawn to an image buffer when the drawing changes, and the image buffer is just copied to the screen.
+	<li>Integrate features into the lexical ambiguity selector<br>
+		Currently, the lexical selection only selects pre-terminal constituent labels. However, preterminal constituents may also include features. Thus, it would be best to select combinations of constituent labels and feature-value pairs.
+	<li>Support the SVG output format<br>
+		SVG is like EPS for young people. It's relatively easy to edit by hand and commercial tools will be available for editing soon. Then you could output your parse trees to SVG and use Illustrator, for instance, to highlight one particular constituent, or rearrange the tree if it wasn't drawn correctly.
+</ul>
+
+<p><h2>Items left for this release</h2>
+<ul>
+	<li>Get the feature disabler working correctly<br>
+		To do this, the arrange functions in each constituent label drawing must be called again. The parse tree panel (and thus the enclosing window) must be resized also. In addition to all of this, the panels must be forced to be redrawn. In the future code, this will be a refresh of the image (or invalidate, depending on how its implemented)
+	<li>Windows installer<br>
+		NSIS is an open source program that creates Windows installer programs. This will be needed for Windows.
+	<li>UNIX installer<br>
+		A UNIX installer would be nice. It would be best to have a script like the Java one, which is an sh script containing the compressed files in addition to user interaction. It should ask the user where to install, checking whether the user has write permissions on /usr/local or whatever. It would check whether things go into /usr/bin or /usr/local/bin or wherever by picking the same directory as some well-known program.
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<html>
+<head>
+	<title>Parse Tree Application Help</title>
+</head>
+
+<body>
+<h1>Parse Tree Application Help</h1>
+
+<p><h2>Credits</h2>
+The Parse Tree Application (PTA) was created by Keith Trnka, Ph.D. 
+Support for saving EPS images is provided by the open source EPS Graphics2D package, available from http://www.jibble.org/epsgraphics.
+Support for saving SVG images is provided by the open source package Apache Batik, available from http://xmlgraphics.apache.org/batik/.
+
+<p><h2>About</h2>
+PTA was designed to allow researchers in Computational Linguistics, or Natural Language Processing, to work more efficiently with natural language parsing.
+It renders parse trees and makes it easier to compare a set of ambiguous parses.
+It also can save to many popular formats that are suitable for publication.
+My overall hope for PTA is that it helps to improve research efficiency with parsing.
+
+More recently, I've been supporting PTA as an API as well (which is included within the jar file).
+
+<h3>Changelog</h3>
+<dl>
+<dt>1.1
+<dd>By request, PTA can handle labeled bracketing format using square brackets rather than only parentheses.  Additionally included example code to use PTA as an API to render parse trees in your own application.
+<dt>1.0
+<dd>SVG saving support.  Better interface for typing in parse trees.  Option to draw terminal lines.  Source and Javadocs included inside the JAR.  No longer distributed as a ZIP with junk inside - everything should be in the (executable) JAR.
+<dt>1.0 beta
+<dd>Initial release
+</dl>
+
+<p><h2>Features</h2>
+PTA supports the following abilities:
+<UL>
+	<LI>Entering single parse trees in either XML or labeled bracketing format.
+	<LI>Loading multiple parse trees from a file in XML or labeled bracketing format.<br>
+		The XML file format has the root element "trees". The labeled bracketing root element is unnamed. See below for an example.
+	<LI>Lexical ambiguity selection<br>
+		A set of parse trees may be loaded into the <em>lexical amnbiguity selector</em> to help users analyse a large set of parse trees. This set is partitioned into subsets such that each parse tree in a subset has the same preterminal symbols as the other trees in the same subset. In common terms, it splits up the parse trees into groups that agree on the part of speech (POS) tags. 
+	<LI>Comparison of parse trees<br>
+		All non-minimized parse trees may be compared. This will color the similarities between trees gray and leave the differences black, so as to draw attention to the differences.
+	<LI>Enhanced comparison of parse trees<br>
+		Parse trees which have already been compared may be promoted to an enhanced comparison view, in which most similarities between parse trees are omitted from the drawing.
+	<LI>Parse tree drawing<br>
+		Flexible parse tree drawing is supported by three methods: top-oriented, bottom-oriented, and average-oriented.
+		<ul>
+			<li>Bottom-oriented<br>
+				Constituents are drawn as close to the bottom as possible. 
+			<li>Top-oriented<br>
+				Constituents are drawn as close to the top as possible. So the "level" of the constituent is its depth in the tree.
+			<li>Average-oriented<br>
+				Constituents are drawn in a position that is the average of the other two methods.
+		</ul>
+	<LI>Image saving<br>
+		PTA supports the following image file formats:
+		<ul>
+			<li>eps - preferred due to it's lossless vector-based format
+			<li>png - recommended for situations when the EPS image isn't useful. It's lossless but not vector.
+			<li>jpeg - not recommended; It's both lossy and non-vector.
+		</ul>
+	<LI>Printing<br>
+		PTA uses Java's built-in printing facilities. It doesn't seem to work properly under Solaris, but works correctly under Windows.
+	<LI>Window management
+</UL>
+
+<p><h2>Parse Tree Formats</h2>
+Parse trees may be specified in either XML or labeled bracketing. Unless otherwise specified, the example representations refer to this parse tree:<br><IMG SRC="help/help_example1.png" WIDTH="208" HEIGHT="180" BORDER="0" ALT="Normal example parse tree">
+<dl>
+	<dt><b>XML</b>
+	<dd>
+<!-- <S><NP><PRP>I</PRP></NP> <VP><V>wore</V> <NP><DT>a</DT> <NN>hat</NN></NP> <PP><P>with</P> <NP><DT>a</DT> <NN>ribbon</NN></NP></PP></VP>.</S> -->
+<code>
+&lt;S&gt;&lt;NP&gt;&lt;PRP&gt;I&lt;/PRP&gt;&lt;/NP&gt; &lt;VP&gt;&lt;V&gt;wore&lt;/V&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;hat&lt;/NN&gt;&lt;/NP&gt; &lt;PP&gt;&lt;P&gt;with&lt;/P&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;ribbon&lt;/NN&gt;&lt;/NP&gt;&lt;/PP&gt;&lt;/VP&gt;.&lt;/S&gt;
+</code><br>
+Here is what the parse tree looks like when PTA draws it to a PNG image file:
+
+
+<p>For the situations in which the label of a constituent in a parse tree is not a valid XML name, the constituent label may be bypassed by using the XML tag <code>constituent</code> in conjunction with the attribute <code>label</code>, as in the following example:<br>
+<blockquote>
+<table border="1">
+<tr>
+<td>
+<IMG SRC="help/help_example2.png" WIDTH="158" HEIGHT="240" BORDER="0" ALT="Second normal parse tree example">
+</td>
+<td>
+<code>
+<!-- <S><SSUB><DP><DETP><POSS>my</POSS></DETP> <NP><N><N><N>name</N> <constituent label="+S">+s</constituent></N></N></NP></DP> <VP><V>is</V> <ADJP><ADJ>tony</ADJ></ADJP></VP></SSUB></S> -->
+&lt;S&gt;&lt;SSUB&gt;&lt;DP&gt;&lt;DETP&gt;&lt;POSS&gt;my&lt;/POSS&gt;&lt;/DETP&gt; &lt;NP&gt;&lt;N&gt;&lt;N&gt;&lt;N&gt;name&lt;/N&gt; &lt;constituent label="+S"&gt;+s&lt;/constituent&gt;&lt;/N&gt;&lt;/N&gt;&lt;/NP&gt;&lt;/DP&gt; &lt;VP&gt;&lt;V&gt;is&lt;/V&gt; &lt;ADJP&gt;&lt;ADJ&gt;tony&lt;/ADJ&gt;&lt;/ADJP&gt;&lt;/VP&gt;&lt;/SSUB&gt;&lt;/S&gt;
+</code>
+</td>
+</tr>
+</table>
+</blockquote>
+Note that XML is case-sensitive, so using the <code>constituent</code> element with the <code>label</code> attribute is case-sensitive.
+
+
+	<dt><b>Labeled bracketing</b>
+	<dd><code>(S (NP (PRP I ) ) (VP (V wore ) (NP (DT a ) (NN hat ) ) (PP (P with ) (NP (DT a ) (NN ribbon ) ) ) ) . )</code><br>
+		<em>Note: the closing brackets don't need to be separated by whitespace, but they are here for clarity.</em>
+</dl>
+XML format is preferred. This is because XML format represents spacing and punctuation in an exact manner. In other words, if there are exactly three spaces between words, then three spaces are drawn in the tree. Normal labeled bracketing doesn't support this, but is often easier to type.
+
+<p>As with single trees, two file formats exist for storing multiple parse trees. The XML and labeled bracketing representations were extended to support multiple parse trees. Below is an example of each file format, both containing a single parse tree.
+<dl>
+	<dt><b>XML</b>
+	<dd>
+<!-- 
+<trees>
+<S><NP><PRP>I</PRP></NP> <VP><V>wore</V> <NP><DT>a</DT> <NN>hat</NN></NP> <PP><P>with</P> <NP><DT>a</DT> <NN>ribbon</NN></NP></PP></VP>.</S> 
+</trees>
+-->
+<code>
+&lt;trees&gt;<br>
+&lt;S&gt;&lt;NP&gt;&lt;PRP&gt;I&lt;/PRP&gt;&lt;/NP&gt; &lt;VP&gt;&lt;V&gt;wore&lt;/V&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;hat&lt;/NN&gt;&lt;/NP&gt; &lt;PP&gt;&lt;P&gt;with&lt;/P&gt; &lt;NP&gt;&lt;DT&gt;a&lt;/DT&gt; &lt;NN&gt;ribbon&lt;/NN&gt;&lt;/NP&gt;&lt;/PP&gt;&lt;/VP&gt;.&lt;/S&gt; <br>
+&lt;/trees&gt;
+</code>
+	<dt><b>Labeled bracketing</b>
+	<dd>
+<code>
+(<br>
+(S (NP (PRP I ) ) (VP (V wore ) (NP (DT a ) (NN hat ) ) (PP (P with ) (NP (DT a ) (NN ribbon ) ) ) ) . )<br>
+)
+</code>
+</dl>
+
+<h2>Errata/bugs</h2>
+<ul>
+<li>If you enable/disable drawing features, sometimes that can cause a crash (I think it happens when you draw a tree with features then enable/disable twice).
+<li>The most annoying bug in the application is that lines can sometimes cross, as in the example below. The drawing error can be avoided by selecting the top-down drawing method, which is in the popup menu if you right-click on the tree.<br>
+<IMG SRC="help/help_parse_draw_error.png" WIDTH="347" HEIGHT="240" BORDER="0" ALT="Parse tree with lines crossing">
+
+<li>Printing doesn't work under Solaris (last I checked anyway - that was years ago)
+</ul>
+
+<p><h2>Future Work</h2>
+<ul>
+	<li>Optimize the graphics<br>
+		Parse tree drawings don't change all that much, but Java re-draws them pretty often because it has no notion of whether the image has changed or not. So, things that force windows to re-draw, like dragging, can be slow on some computers. This could be solved if the drawing is drawn to an image buffer when the drawing changes, and the image buffer is just copied to the screen.
+	<li>Integrate features into the lexical ambiguity selector<br>
+		Currently, the lexical selection only selects pre-terminal constituent labels. However, preterminal constituents may also include features. Thus, it would be best to select combinations of constituent labels and feature-value pairs.
+
+</ul>
+
+</body>
+</html>

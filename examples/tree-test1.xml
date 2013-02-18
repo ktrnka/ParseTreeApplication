@@ -1,0 +1,4 @@
+<trees>
+	<S><NP><PRP>I</PRP></NP> <VP><V>wore</V> <NP><DT>a</DT> <NN>hat</NN></NP> <PP><P>with</P> <NP><DT>a</DT> <NN>ribbon</NN></NP></PP></VP>.</S>
+	<S><NP><PRP>I</PRP></NP> <VP><V>wore</V> <NP><DT>a</DT> <NN>hat</NN> <PP><P>with</P> <NP><DT>a</DT> <NN>ribbon</NN></NP></PP></NP></VP>.</S>
+</trees>
